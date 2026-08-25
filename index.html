@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEO_HACK // 2026</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Interactive Background Canvas -->
+    <canvas id="matrixCanvas"></canvas>
+
+    <!-- Main Content Container -->
+    <main class="glass-container">
+        <header>
+            <div class="glitch-wrapper">
+                <h1 class="glitch" data-text="NEO_HACK_2026">NEO_HACK_2026</h1>
+            </div>
+            <p class="subtitle">DECODE THE FUTURE. WIN THE GLORY.</p>
+        </header>
+
+        <!-- Dynamic Countdown Grid -->
+        <section class="countdown-container">
+            <div class="time-box">
+                <span id="days">00</span>
+                <p>DAYS</p>
+            </div>
+            <div class="time-box">
+                <span id="hours">00</span>
+                <p>HOURS</p>
+            </div>
+            <div class="time-box">
+                <span id="minutes">00</span>
+                <p>MINUTES</p>
+            </div>
+            <div class="time-box">
+                <span id="seconds">00</span>
+                <p>SECONDS</p>
+            </div>
+        </section>
+
+        <!-- Interactive Track Cards -->
+        <section class="tracks-grid">
+            <div class="card" onclick="selectTrack(this)">
+                <div class="card-glow"></div>
+                <h3>AI / ML MATRIX</h3>
+                <p>Build the minds of tomorrow using adaptive neural systems.</p>
+            </div>
+            <div class="card" onclick="selectTrack(this)">
+                <div class="card-glow"></div>
+                <h3>CYBER SECURITY</h3>
+                <p>Defend the core network against hostile digital threat vectors.</p>
+            </div>
+        </section>
+
+        <!-- CTA Action Area -->
+        <footer class="action-zone">
+            <button class="neon-btn" onclick="triggerDeployment()">
+                <span class="btn-text">INITIALIZE REGISTRATION</span>
+                <span class="btn-flare"></span>
+            </button>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
