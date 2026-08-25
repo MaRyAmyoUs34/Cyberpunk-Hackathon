@@ -1,171 +1,249 @@
-/* Base Variables & Reset */
+/* Color Mapping Root Values */
 :root {
-    --neon-cyan: #00f3ff;
-    --neon-pink: #ff007f;
-    --dark-bg: #0a0a12;
-    --glass-bg: rgba(10, 10, 18, 0.7);
-    --text-color: #e2e8f0;
+    --soft-beige: #f4efe6;
+    --navy-blue: #0b1e36;
+    --charcoal-black: #121214;
+    --pure-white: #ffffff;
+    --border-color: rgba(11, 30, 54, 0.1);
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 body {
-    background-color: var(--dark-bg);
-    color: var(--text-color);
-    overflow-x: hidden;
-    min-height: 100vh;
+    background-color: var(--soft-beige);
+    color: var(--charcoal-black);
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
+    position: relative;
 }
 
-/* Interactive Background */
-#matrixCanvas {
-    position: fixed;
+#studioCanvas {
+    position: absolute;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     z-index: 1;
-    opacity: 0.35;
+    pointer-events: none;
 }
 
-/* Premium Glass Container */
-.glass-container {
+/* Application Desktop Main Deck */
+.studio-container {
     position: relative;
     z-index: 2;
-    width: 90%;
-    max-width: 900px;
-    background: var(--glass-bg);
-    border: 1px solid rgba(0, 243, 255, 0.2);
-    border-radius: 16px;
+    background-color: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(25px);
+    width: 92%;
+    max-width: 850px;
     padding: 40px;
-    backdrop-filter: blur(12px);
-    box-shadow: 0 0 40px rgba(0, 243, 255, 0.1);
+    border-radius: 24px;
+    box-shadow: 0 35px 80px rgba(11, 30, 54, 0.08);
+    border: 1px solid var(--border-color);
+}
+
+.studio-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.badge {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    background-color: var(--charcoal-black);
+    color: var(--soft-beige);
+    padding: 6px 14px;
+    border-radius: 30px;
+    margin-bottom: 15px;
+}
+
+.studio-header h1 {
+    font-size: 2.4rem;
+    color: var(--navy-blue);
+    font-weight: 800;
+    margin-bottom: 6px;
+}
+
+.studio-header p {
+    font-size: 0.95rem;
+    color: #5d6b7e;
+    margin-bottom: 25px;
+}
+
+/* Instrument Selection Menu Bar */
+.instrument-selector {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.inst-btn {
+    background-color: var(--pure-white);
+    border: 1px solid var(--border-color);
+    color: var(--navy-blue);
+    padding: 12px 22px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.inst-btn:hover, .inst-btn.active {
+    background-color: var(--navy-blue);
+    color: var(--soft-beige);
+    border-color: var(--navy-blue);
+    transform: translateY(-2px);
+}
+
+/* Unified Layout Decks */
+.instrument-deck {
+    display: none;
+    animation: fadeInSlide 0.35s ease-out;
+}
+
+.instrument-deck.active-deck {
+    display: block;
+}
+
+/* 🎹 PIANO VIEW ARCHITECTURE */
+.piano-keyboard {
+    display: flex;
+    justify-content: center;
+    background-color: var(--charcoal-black);
+    padding: 20px;
+    border-radius: 14px;
+    gap: 4px;
+}
+
+.piano-key {
+    flex: 1;
+    height: 180px;
+    max-width: 75px;
+    background-color: var(--pure-white);
+    border-radius: 0 0 6px 6px;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 15px;
+    transition: all 0.1s ease;
+    user-select: none;
+}
+
+.piano-key span {
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #a0aec0;
+}
+
+.piano-key:active, .piano-key.playing {
+    background-color: var(--soft-beige);
+    height: 175px;
+    box-shadow: inset 0 10px 20px rgba(0,0,0,0.15);
+}
+
+/* 🎸 GUITAR VIEW ARCHITECTURE */
+.guitar-fretboard {
+    background-color: var(--charcoal-black);
+    border-radius: 12px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.guitar-string-row {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.guitar-string-row .line {
+    flex: 1;
+    background-color: var(--soft-beige);
+    height: 2px;
+    transition: background-color 0.1s;
+}
+
+.string-6 { height: 4.5px !important; }
+.string-5 { height: 3.5px !important; }
+.string-4 { height: 2.8px !important; }
+.string-3 { height: 2.2px !important; }
+.string-2 { height: 1.6px !important; }
+.string-1 { height: 1.0px !important; }
+
+.key-indicator {
+    background-color: rgba(255,255,255,0.15);
+    color: var(--soft-beige);
+    font-size: 0.75rem;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-left: 15px;
+    min-width: 28px;
     text-align: center;
 }
 
-/* Glitch Typography */
-.glitch-wrapper {
-    margin-bottom: 10px;
+.guitar-string-row:hover .line, .guitar-string-row.playing .line {
+    background-color: #ffffff;
+    box-shadow: 0 0 12px #ffffff;
 }
 
-.glitch {
-    font-size: 3.5rem;
-    font-weight: 900;
-    letter-spacing: 4px;
-    color: #fff;
-    position: relative;
-    text-shadow: 0 0 10px var(--neon-cyan);
+/* 🥁 DRUM VIEW ARCHITECTURE */
+.drum-matrix {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
 }
 
-.subtitle {
-    font-size: 1rem;
-    color: var(--neon-cyan);
-    letter-spacing: 6px;
-    margin-bottom: 40px;
-    text-shadow: 0 0 5px rgba(0, 243, 255, 0.5);
-}
-
-/* Countdown UI */
-.countdown-container {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-bottom: 40px;
-}
-
-.time-box {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 0, 127, 0.2);
-    padding: 15px 25px;
-    border-radius: 8px;
-    min-width: 100px;
-    box-shadow: inset 0 0 15px rgba(255, 0, 127, 0.05);
-}
-
-.time-box span {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: var(--neon-pink);
-    text-shadow: 0 0 10px var(--neon-pink);
-}
-
-.time-box p {
-    font-size: 0.75rem;
-    letter-spacing: 2px;
-    margin-top: 5px;
-    color: #8a8aa3;
-}
-
-/* Interactive Cards */
-.tracks-grid {
-    display: flex;
-    gap: 20px;
-    margin-bottom: 40px;
-}
-
-.card {
-    flex: 1;
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 30px;
-    border-radius: 12px;
+.drum-pad {
+    background-color: var(--pure-white);
+    border: 2px solid var(--border-color);
+    border-radius: 14px;
+    padding: 35px 15px;
+    text-align: center;
     cursor: pointer;
-    position: relative;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    overflow: hidden;
+    transition: all 0.15s ease;
 }
 
-.card:hover {
-    transform: translateY(-5px);
-    border-color: var(--neon-cyan);
-    box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
-}
-
-.card.selected {
-    border-color: var(--neon-pink);
-    box-shadow: 0 0 25px rgba(ff, 0, 127, 0.3);
-    background: rgba(255, 0, 127, 0.03);
-}
-
-.card h3 {
-    font-size: 1.25rem;
-    margin-bottom: 10px;
-    color: #fff;
-}
-
-.card p {
-    font-size: 0.9rem;
-    color: #a0aec0;
-    line-height: 1.5;
-}
-
-/* Neon Button Action */
-.neon-btn {
-    background: transparent;
-    border: 2px solid var(--neon-cyan);
-    padding: 15px 40px;
+.drum-pad h3 {
     font-size: 1.1rem;
-    color: var(--neon-cyan);
-    font-weight: bold;
-    letter-spacing: 2px;
-    border-radius: 50px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s;
-    box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+    color: var(--navy-blue);
+    margin-bottom: 5px;
 }
 
-.neon-btn:hover {
-    background: var(--neon-cyan);
-    color: var(--dark-bg);
-    box-shadow: 0 0 35px var(--neon-cyan);
-    transform: scale(1.03);
+.drum-pad p {
+    font-size: 0.75rem;
+    color: #a0aec0;
+}
+
+.drum-pad:hover {
+    border-color: var(--navy-blue);
+    transform: translateY(-2px);
+}
+
+.drum-pad:active, .drum-pad.playing {
+    background-color: var(--charcoal-black);
+    border-color: var(--charcoal-black);
+    transform: scale(0.96);
+}
+
+.drum-pad:active h3, .drum-pad.playing h3 {
+    color: var(--soft-beige);
+}
+
+@keyframes fadeInSlide {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
 }
